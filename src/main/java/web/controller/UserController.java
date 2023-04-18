@@ -1,16 +1,10 @@
 package web.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import web.Service.UserService;
 import web.models.User;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -21,28 +15,36 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    //показать всех _______________________________________________________________________________
+    @GetMapping("/allUsers")
     String showAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
-        return "users/all";
+        return "/allUsers";
     }
+
+    //создать нового _______________________________________________________________________________
     @GetMapping("/new")
     String newUser(Model model) {
         model.addAttribute("user", new User());
-    return "pages/newUser";
+    return "/newUser";
     }
-    @PostMapping("/")
+    @PostMapping()
     public String create(@ModelAttribute("user") User user) {
         userService.createUser(user);
-        return "redirect:/user";
+        return "redirect:/allUsers";
     }
-    void updateUser(User user) {
 
-    }
-    User readUser(long id) {
-        return null;
-    }
-    void deleteUser(long id) {
+    //прочитать по id _______________________________________________________________________________
+//    @GetMapping("/{id}")
+//    public String read(@PathVariable("id") int id, Model model) {
+//        model.addAttribute("user", userService.readUser(id));
+//        return "/show";
+//    }
+//    void updateUser(User user) {
+//
+//    }
 
-    }
+//    void deleteUser(long id) {
+//
+//    }
 }

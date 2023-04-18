@@ -1,6 +1,7 @@
 package web.Repository;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import web.models.User;
 
 import javax.persistence.EntityManager;
@@ -13,7 +14,7 @@ public class UserRepImpl implements UserRep {
     private EntityManager entityManager;
     @Override
     public List<User> getAllUsers() {
-        return entityManager.createQuery("from User", User.class).getResultList();
+        return entityManager.createQuery("FROM User", User.class).getResultList();
     }
     @Override
     public void createUser(User user) {
