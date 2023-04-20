@@ -17,34 +17,43 @@ public class UserController {
 
     //показать всех _______________________________________________________________________________
     @GetMapping("/allUsers")
-    String showAllUsers(Model model) {
+    public String showAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "/allUsers";
     }
 
     //создать нового _______________________________________________________________________________
     @GetMapping("/new")
-    String newUser(Model model) {
+    public String newUser(Model model) {
         model.addAttribute("user", new User());
     return "/newUser";
     }
     @PostMapping()
     public String create(@ModelAttribute("user") User user) {
         userService.createUser(user);
-        return "redirect:/allUsers";
+        return "redirect:users/allUsers";
     }
 
     //прочитать по id _______________________________________________________________________________
-//    @GetMapping("/{id}")
-//    public String read(@PathVariable("id") int id, Model model) {
-//        model.addAttribute("user", userService.readUser(id));
-//        return "/show";
-//    }
-//    void updateUser(User user) {
-//
-//    }
+    @GetMapping("/{id}")
+    public String read(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userService.readUser(id));
+        return "/show";
+    }
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("user", userService.readUser(id));
+        return "/updateUser";
+    }
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") long id) {
+        userService.updateUser(user,id);
+        return "redirect:users/allUsers";
+    }
 
-//    void deleteUser(long id) {
-//
-//    }
+    @DeleteMapping("/{id}")
+    public String  deleteUser(@PathVariable("id") long id) {
+        userService.deleteUser(id);
+        return "redirect:/users";
+    }
 }

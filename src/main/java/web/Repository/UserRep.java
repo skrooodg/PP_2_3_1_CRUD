@@ -9,9 +9,9 @@ public interface UserRep {
 
     void createUser(User user);
 
-    void updateUser(User user);
-
     User readUser(long id);
+
+    void updateUser(User userOld, Long id);
 
     void deleteUser(long id);
 }

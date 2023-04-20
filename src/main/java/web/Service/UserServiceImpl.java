@@ -8,7 +8,6 @@ import web.models.User;
 import java.util.List;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService{
     private final UserRep userRepS;
 
@@ -17,26 +16,31 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public List<User> getAllUsers() {
         return userRepS.getAllUsers();
     }
 
     @Override
+    @Transactional
     public void createUser(User user) {
     userRepS.createUser(user);
     }
 
     @Override
-    public void updateUser(User user) {
-    userRepS.updateUser(user);
+    @Transactional
+    public void updateUser(User user, Long id) {
+    userRepS.updateUser(user, id);
     }
 
     @Override
+    @Transactional
     public User readUser(long id) {
         return userRepS.readUser(id);
     }
 
     @Override
+    @Transactional
     public void deleteUser(long id) {
         userRepS.deleteUser(id);
     }

@@ -5,11 +5,16 @@
     <title>Show user by ID</title>
 </head>
 <body>
-<p th:text="${user.getId()}">Name</p>
+<p th:text="${user.getId()}">VALUE</p>
 <p th:text="${user.getName()}">VALUE</p>
 <p th:text="${user.getLastName()}">VALUE</p>
-<p th:text="${user.getAge()}">Name</p>
-<p th:text="${user.getNational()}">Name</p>
+<p th:text="${user.getAge()}">VALUE</p>
+<p th:text="${user.getNational()}">VALUE</p>
 
+<a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>
+
+<form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+    <input type="submit" value="Delete">
+</form>
 </body>
 </html>
